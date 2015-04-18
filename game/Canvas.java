@@ -9,7 +9,7 @@ public class Canvas extends JPanel
 {
 	private static final short WIDTH = 800;
 	private static final short HEIGHT = 600;
-	
+	//this is a canvas
 	public Canvas()
 	{
 		super();
