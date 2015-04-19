@@ -2,11 +2,14 @@ package game;
 
 public class CoffeeHazard {
 
+	public static final float HAZARD_RADIUS = 35;
+	public static final int FULL_COFFEE = 5;
 	private int coffeeQuantity;
 	private float hazardPosition;
 	
 	public CoffeeHazard(float position){
 		this.setHazardPosition(position);
+		this.coffeeQuantity =FULL_COFFEE;
 	}
 	
 	public int getCoffeeQuantity(){
@@ -24,4 +27,5 @@ public class CoffeeHazard {
 	public void setHazardPosition(float hazardPosition) {
 		this.hazardPosition = hazardPosition;
 	}
+
 }

@@ -37,7 +37,8 @@ public class CoffeeHero {
 	//refill when you are at the coffee machine
 	private void refillCoffee(){
 		if (this.position == linkWorld.cM.getPosition()){
-			this.coffeeAmount = coffeeAmount + 1;
+			this.coffeeAmount = coffeeAmount + 1; 
+			//TODO add delay and loop in INPUT
 		}
 		
 	}

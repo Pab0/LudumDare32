@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class World {
 
-	public static LinkedList<Enemy> enemiesList;
+	public LinkedList<Enemy> enemiesList;
 	 CoffeeMaker cM;
 	 CoffeeHero cH ;
 	 
@@ -14,9 +14,6 @@ public class World {
 	 }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
-		
-		
 	}
 
 }

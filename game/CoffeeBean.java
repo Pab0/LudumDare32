@@ -10,8 +10,9 @@ public class CoffeeBean {
 	public CoffeeBean(float target){
 		this.targetSpot = target;
 	}
-	
+	//TODO insert move by Collisions Team
 	private void move(){
 		
 	}
+
 }
