@@ -1,4 +1,4 @@
-package game;
+package ld32.game;
 
 import java.awt.Dimension;
 

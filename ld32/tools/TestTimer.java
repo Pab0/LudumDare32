@@ -1,4 +1,4 @@
-package tools;
+package ld32.tools;
 
 public class TestTimer {
 

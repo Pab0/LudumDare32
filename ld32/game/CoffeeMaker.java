@@ -1,10 +1,15 @@
-package game;
+package ld32.game;
 
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 public class CoffeeMaker {
 
+	public static final short WIDTH = (short)(Canvas.WIDTH/2);	//position
+	public static final short HEIGHT = (short)(Canvas.HEIGHT/2);//position
+	public static final short RANGE = 200;
 	public static final float LOSE_RADIUS = 50;
+	public static BufferedImage image;
 	private float position;
 	private int range;
 	private boolean targetAquired = false;
@@ -20,9 +25,9 @@ public class CoffeeMaker {
 		this.position = position;
 	}
 
-	public CoffeeMaker(int position,int range,World linkWorld){
-		this.range = range;
-		this.position = position;
+	public CoffeeMaker(World linkWorld){
+		this.range = CoffeeMaker.RANGE;
+		this.position = CoffeeMaker.WIDTH;
 		this.linkWorld = linkWorld;
 	}
 

@@ -1,4 +1,4 @@
-package game;
+package ld32.game;
 
 public class CoffeeHazard {
 
