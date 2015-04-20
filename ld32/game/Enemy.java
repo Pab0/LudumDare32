@@ -54,6 +54,10 @@ public class Enemy {
 	private void drinkCoffee(CoffeeHazard myCoffeeHazard){
 		//TODO index might return -1
 		int index = linkWorld.cH.getCoffeeHazardsList().indexOf(myCoffee); //find my coffee in the list
+		if (index==-1)
+		{
+			return;	//in case the coffee has already been drunk
+		}
 		int quantity = linkWorld.cH.getCoffeeHazardsList().get(index).getCoffeeQuantity();
 		if (quantity > 0){ //if there is still some coffee left
 			linkWorld.cH.getCoffeeHazardsList().get(index).setCoffeeQuantity(quantity -1); //reduce the coffee
@@ -64,11 +68,11 @@ public class Enemy {
 		
 		if (direction==1)
 		{
-			this.curImage = Enemy.standingL;
+			this.curImage = Enemy.standingR;
 		}
 		else if (direction==-1)
 		{
-			this.curImage = Enemy.standingR;
+			this.curImage = Enemy.standingL;
 		}
 	}
 
@@ -106,7 +110,7 @@ public class Enemy {
 	{
 		if (this.timePassed>Enemy.IMAGE_CHANGE_RATE)
 		{
-			this.timePassed -= Enemy.IMAGE_CHANGE_RATE;
+			this.timePassed = timePassed%Enemy.IMAGE_CHANGE_RATE;
 			this.curImageIndex++;
 		}
 		if (this.direction==1)	//moving right

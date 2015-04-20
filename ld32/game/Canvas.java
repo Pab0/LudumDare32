@@ -52,7 +52,7 @@ public class Canvas extends JPanel implements KeyListener
 
 	private void drawHero(Graphics g)
 	{
-		g.drawImage(linkWorld.cH.curFrame, (int)linkWorld.cH.getPosition(), (int)(Canvas.HEIGHT/2), this);	//TODO specify exact height 
+		g.drawImage(linkWorld.cH.curImage, (int)linkWorld.cH.getPosition(), (int)(Canvas.HEIGHT/2), this);	//TODO specify exact height 
 	}
 
 	private void drawEnemies(Graphics g)
@@ -93,10 +93,10 @@ public class Canvas extends JPanel implements KeyListener
 			this.linkWorld.cH.direction = 0;
 			break;
 		case KeyEvent.VK_SPACE:
-			this.linkWorld.cH.direction = 0;
+			this.linkWorld.cH.isServing = false;
 			break;
 		case KeyEvent.VK_W:
-			this.linkWorld.cH.direction = 0;
+			this.linkWorld.cH.isRefilling = false;
 			break;
 		}	
 

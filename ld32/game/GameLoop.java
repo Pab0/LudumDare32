@@ -33,10 +33,21 @@ public class GameLoop
 	private void updateWorld()
 	{
 		//TODO:
+		printFPS();
 		updateHero();
 		//updateCoffeeMaker();
 		//updateCoffeeBean();
 		updateEnemies();
+	}
+	
+	private void printFPS()
+	{
+		try {
+			Thread.sleep(17);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("FPS: " + 1000/this.loopTime);
 	}
 	
 	private void updateHero()
@@ -51,7 +62,6 @@ public class GameLoop
 		{
 			enemy.act(loopTime);
 		}
-		//TODO existing enemies
 	}
 	private void render()
 	{
