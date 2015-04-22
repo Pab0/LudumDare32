@@ -1,15 +1,15 @@
-package tools;
+package ld32.tools;
 
 public class Timer
 {
 	long time;
 	
-	protected Timer()
+	public Timer()
 	{
 		this.time = System.nanoTime();
 	}
 	
-	protected long update()
+	public long update()
 	{
 		long oldTime = this.time;
 		this.time = System.nanoTime();
@@ -17,7 +17,7 @@ public class Timer
 		return diff;
 	}
 	
-	protected float getMilSecs()
+	public float getMilSecs()
 	{
 		float diff = this.update();
 		return diff/1000000;
