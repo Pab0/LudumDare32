@@ -9,6 +9,8 @@ public class CoffeeHero {
 	private static final int STARTING_COFFEE_AMOUNT = 3;
 	private static final float MOVING_SPEED = 0.2f;
 	private static final float IMAGE_CHANGE_RATE = 250f;
+	static final short IMAGE_WIDTH = Enemy.IMAGE_WIDTH;
+	static final short IMAGE_HEIGHT = Enemy.IMAGE_HEIGHT;
 	
 	static BufferedImage[] framesL = new BufferedImage[4];
 	static BufferedImage[] framesR = new BufferedImage[4];
@@ -25,7 +27,7 @@ public class CoffeeHero {
 	byte direction;
 	boolean isRefilling;
 	boolean isServing;
-	private LinkedList<CoffeeHazard> coffeeHazardsList = new LinkedList<CoffeeHazard>(); 
+	LinkedList<CoffeeHazard> coffeeHazardsList = new LinkedList<CoffeeHazard>(); 
 	World linkWorld;
 	float timePassed;
 

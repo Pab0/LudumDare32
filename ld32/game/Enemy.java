@@ -9,6 +9,8 @@ public class Enemy {
 	static final float HEIGHT = 300;	//position on y axis to be drawn
 	private static final byte STARTING_LIFE = 3;
 	private static final float IMAGE_CHANGE_RATE = 250f;
+	static final short IMAGE_WIDTH = 50;
+	static final short IMAGE_HEIGHT = 150;
 
 	private byte life;
 	private byte direction;

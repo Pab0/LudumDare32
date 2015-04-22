@@ -9,8 +9,10 @@ public class World {
 	static final short PLAYING_SCREEN = 20;
 	static final short ENDING_SCREEN = 30;
 	
+	static final short HEIGHT_AT_DOOR_LEVEL = 540;
 	private static final float ENEMY_SPAWN_RATE = 3000;
 	private float spawnTimer = 0;
+	
 	
 	Random random;
 	AssetsLoader assetsLoader;

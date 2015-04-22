@@ -14,7 +14,7 @@ public class Canvas extends JPanel implements KeyListener
 	static final short WIDTH = 800;
 	static final short HEIGHT = 640;
 
-	static BufferedImage placeholder;
+//	static BufferedImage placeholder;
 
 	World linkWorld;
 	static BufferedImage background;
@@ -38,28 +38,35 @@ public class Canvas extends JPanel implements KeyListener
 	{
 		super.paint(g);
 		g.drawImage(Canvas.background, 0, 0, Canvas.WIDTH, Canvas.HEIGHT, this);
-		drawCoffeeMaker(g);
+//		drawCoffeeMaker(g);	TODO: Need background without CoffeeMaker in order to draw it
 		drawHero(g);
+		drawCoffee(g);
 		drawEnemies(g);
 	}
 
 	private void drawCoffeeMaker(Graphics g)
 	{
-		//TODO
 		g.drawImage(CoffeeMaker.image, (int)(Canvas.WIDTH/2 - CoffeeMaker.image.getWidth()/2), 235, this);
-
 	}
 
 	private void drawHero(Graphics g)
 	{
-		g.drawImage(linkWorld.cH.curImage, (int)linkWorld.cH.getPosition(), (int)(Canvas.HEIGHT/2), this);	//TODO specify exact height 
+		g.drawImage(linkWorld.cH.curImage, (int)(linkWorld.cH.getPosition()-CoffeeHero.IMAGE_WIDTH/2), World.HEIGHT_AT_DOOR_LEVEL-CoffeeHero.IMAGE_HEIGHT, this); 
+	}
+	
+	private void drawCoffee(Graphics g)
+	{
+		for (CoffeeHazard hazard:linkWorld.cH.coffeeHazardsList)
+		{
+			g.drawImage(CoffeeHazard.image, (int)hazard.getHazardPosition(), World.HEIGHT_AT_DOOR_LEVEL-CoffeeHazard.IMAGE_WIDTH, CoffeeHazard.IMAGE_WIDTH, CoffeeHazard.IMAGE_HEIGHT, this);
+		}
 	}
 
 	private void drawEnemies(Graphics g)
 	{
 		for (Enemy enemy:linkWorld.enemiesList)
 		{
-			g.drawImage(enemy.curImage, (int)enemy.getPosition(), 380, this);
+			g.drawImage(enemy.curImage, (int)(enemy.getPosition()-Enemy.IMAGE_WIDTH/2), World.HEIGHT_AT_DOOR_LEVEL-Enemy.IMAGE_HEIGHT, this);
 		}
 	}
 
