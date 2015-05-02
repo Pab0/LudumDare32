@@ -27,8 +27,8 @@ public class AssetsLoader {
 	private void loadGraphics()
 	{
 		Canvas.background = loadImage("background.png");
-		CoffeeHero.stopGivingL = loadImage("coffeeWarriorMovementStadingToL.png");
-		CoffeeHero.stopGivingR = loadImage("coffeeWarriorMovementStadingToR.png");
+		CoffeeHero.stopGivingL = loadImage("coffeeWarriorMovementStandingToL.png");
+		CoffeeHero.stopGivingR = loadImage("coffeeWarriorMovementStandingToR.png");
 		CoffeeHero.framesL[0] = loadImage("coffeeWarriorMovement1ToL.png");
 		CoffeeHero.framesL[1] = CoffeeHero.stopGivingL;
 		CoffeeHero.framesL[2] = loadImage("coffeeWarriorMovement2ToL.png");
@@ -37,8 +37,8 @@ public class AssetsLoader {
 		CoffeeHero.framesR[1] = CoffeeHero.stopGivingR;
 		CoffeeHero.framesR[2] = loadImage("coffeeWarriorMovement2ToR.png");
 		CoffeeHero.framesR[3] = CoffeeHero.stopGivingR;
-		CoffeeHero.givingL = loadImage("coffeeWarriorMovementStadingGivingToL.png");
-		CoffeeHero.givingR = loadImage("coffeeWarriorMovementStadingGivingToR.png");
+		CoffeeHero.givingL = loadImage("coffeeWarriorMovementStandingGivingToL.png");
+		CoffeeHero.givingR = loadImage("coffeeWarriorMovementStandingGivingToR.png");
 		CoffeeHero.refill[0] = loadImage("refill1.png");
 		CoffeeHero.refill[1] = loadImage("refill2.png");
 		Enemy.standingL = loadImage("coffeeEnemyStandingToL.png");
@@ -58,7 +58,6 @@ public class AssetsLoader {
 
 	private BufferedImage loadImage(String str)
 	{
-		this.f = new File("resources/" + str);
 		try {
 			//trying to read so that it works in JAR
 			InputStream is = this.getClass().getResourceAsStream("/" + str);
@@ -67,7 +66,7 @@ public class AssetsLoader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return this.img;		
+		return this.img;
 	}
 
 	private void loadSounds()

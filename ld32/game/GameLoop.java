@@ -63,6 +63,7 @@ public class GameLoop
 			enemy.act(loopTime);
 		}
 	}
+	
 	private void render()
 	{
 		linkWorld.canvas.repaint();

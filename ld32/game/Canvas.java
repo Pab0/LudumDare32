@@ -75,9 +75,11 @@ public class Canvas extends JPanel implements KeyListener
 		switch(e.getKeyCode())
 		{
 		case KeyEvent.VK_A :
+			this.linkWorld.cH.isMoving = true;
 			this.linkWorld.cH.direction = -1;
 			break;
 		case KeyEvent.VK_D:
+			this.linkWorld.cH.isMoving = true;
 			this.linkWorld.cH.direction = 1;
 			break;
 		case KeyEvent.VK_SPACE:
@@ -94,10 +96,10 @@ public class Canvas extends JPanel implements KeyListener
 		switch(e.getKeyCode())
 		{
 		case KeyEvent.VK_A :
-			this.linkWorld.cH.direction = 0;
+			this.linkWorld.cH.isMoving = false;
 			break;
 		case KeyEvent.VK_D:
-			this.linkWorld.cH.direction = 0;
+			this.linkWorld.cH.isMoving = false;
 			break;
 		case KeyEvent.VK_SPACE:
 			this.linkWorld.cH.isServing = false;

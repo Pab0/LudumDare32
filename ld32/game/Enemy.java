@@ -8,6 +8,7 @@ public class Enemy {
 	static final float SPAWN_DISTANCE = 300;
 	static final float HEIGHT = 300;	//position on y axis to be drawn
 	private static final byte STARTING_LIFE = 3;
+	private static final float DRINKING_SPEED = 500f;
 	private static final float IMAGE_CHANGE_RATE = 250f;
 	static final short IMAGE_WIDTH = 50;
 	static final short IMAGE_HEIGHT = 150;
@@ -17,17 +18,18 @@ public class Enemy {
 	private float speed;
 	private float position;
 	private boolean drinking;
+	boolean isMoving;
 	private CoffeeHazard myCoffee;
 	private World linkWorld;
 
 	private int curImageIndex;
-	private float timePassed;
+	private float animTimePassed;
+	private float drinkTimePassed;
 	BufferedImage curImage;
 	static BufferedImage[] framesL = new BufferedImage[4];	//looking to the left
 	static BufferedImage[] framesR = new BufferedImage[4];	//looking to the right
 	static BufferedImage standingL;
 	static BufferedImage standingR;
-
 
 	public float getPosition(){
 		return this.position;
@@ -55,32 +57,38 @@ public class Enemy {
 
 	private void drinkCoffee(CoffeeHazard myCoffeeHazard){
 		//TODO index might return -1
-		int index = linkWorld.cH.getCoffeeHazardsList().indexOf(myCoffee); //find my coffee in the list
-		if (index==-1)
+		if (drinkTimePassed>Enemy.DRINKING_SPEED)
 		{
-			return;	//in case the coffee has already been drunk
-		}
-		int quantity = linkWorld.cH.getCoffeeHazardsList().get(index).getCoffeeQuantity();
-		if (quantity > 0){ //if there is still some coffee left
-			linkWorld.cH.getCoffeeHazardsList().get(index).setCoffeeQuantity(quantity -1); //reduce the coffee
-		}else{
-			linkWorld.cH.getCoffeeHazardsList().remove(index);
-			this.drinking = false;
-		}
-		
-		if (direction==1)
-		{
-			this.curImage = Enemy.standingR;
-		}
-		else if (direction==-1)
-		{
-			this.curImage = Enemy.standingL;
+			drinkTimePassed = drinkTimePassed%Enemy.DRINKING_SPEED;
+			
+			this.isMoving = false;
+			int index = linkWorld.cH.getCoffeeHazardsList().indexOf(myCoffee); //find my coffee in the list
+			if (index==-1)
+			{
+				return;	//in case the coffee has already been drunk
+			}
+			int quantity = linkWorld.cH.getCoffeeHazardsList().get(index).getCoffeeQuantity();
+			if (quantity > 0){ //if there is still some coffee left
+				linkWorld.cH.getCoffeeHazardsList().get(index).setCoffeeQuantity(quantity -1); //reduce the coffee
+			}else{
+				linkWorld.cH.getCoffeeHazardsList().remove(index);
+				this.drinking = false;
+			}
+
+			if (direction==1)
+			{
+				this.curImage = Enemy.standingR;
+			}
+			else if (direction==-1)
+			{
+				this.curImage = Enemy.standingL;
+			}
 		}
 	}
 
 	private void move(float timePassed){
+		this.isMoving = true;
 		this.position = this.position + direction*timePassed*speed;
-		this.nextMovImage();
 	}
 
 	private void checkForCoffee(){
@@ -90,6 +98,7 @@ public class Enemy {
 			if (Math.abs(this.position - linkWorld.cH.getCoffeeHazardsList().get(i).getHazardPosition()) <= CoffeeHazard.HAZARD_RADIUS){ //and if you are standing on one
 				this.myCoffee = linkWorld.cH.getCoffeeHazardsList().get(i); //That coffee is MY COFFEE!!!!
 				this.drinking = true; // start drinking!
+				this.isMoving = false;
 				break;
 			}
 		}
@@ -97,31 +106,53 @@ public class Enemy {
 
 	//the behavior of the class Enemy
 	void act(float timePassed){
-		this.timePassed += timePassed;
+		this.animTimePassed += timePassed;
+		this.drinkTimePassed += timePassed;
 		this.checkForCoffee();
 		if (!drinking){ //if you 're not drinking coffee
 			if (Math.abs(linkWorld.cM.getPosition() - this.position) > CoffeeMaker.LOSE_RADIUS){ //if you are not at the coffee maker
 				move(timePassed); //move towards the coffee maker
 			}
+			else
+			{
+				//TODO
+				this.isMoving = false;
+			}
 		}else{ //if you are drinking
 			this.drinkCoffee(myCoffee); //drink!
 		}
+		this.nextImage();
 	}
 
-	private void nextMovImage()
+	private void nextImage()
 	{
-		if (this.timePassed>Enemy.IMAGE_CHANGE_RATE)
+		if (this.animTimePassed>Enemy.IMAGE_CHANGE_RATE)
 		{
-			this.timePassed = timePassed%Enemy.IMAGE_CHANGE_RATE;
+			this.animTimePassed = animTimePassed%Enemy.IMAGE_CHANGE_RATE;
 			this.curImageIndex++;
 		}
-		if (this.direction==1)	//moving right
+		if (this.isMoving)
 		{
-			this.curImage = Enemy.framesR[curImageIndex%Enemy.framesR.length];
+
+			if (this.direction==1)	//moving right
+			{
+				this.curImage = Enemy.framesR[curImageIndex%Enemy.framesR.length];
+			}
+			if (this.direction==-1)	//moving left
+			{
+				this.curImage = Enemy.framesL[curImageIndex%Enemy.framesL.length];
+			}
 		}
-		if (this.direction==-1)	//moving left
+		else
 		{
-			this.curImage = Enemy.framesL[curImageIndex%Enemy.framesL.length];
+			if (this.direction==1)	//moving to the right
+			{
+				this.curImage = Enemy.standingR;
+			}
+			else if (this.direction==-1) //moving to the left
+			{
+				this.curImage = Enemy.standingL;
+			}
 		}
 	}
 }
