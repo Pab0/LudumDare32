@@ -43,7 +43,7 @@ public class GameLoop
 	private void printFPS()
 	{
 		try {
-			Thread.sleep(17);
+			Thread.sleep(17);	//17ms = 1000ms / 60 fps
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

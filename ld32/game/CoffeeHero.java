@@ -7,6 +7,7 @@ public class CoffeeHero {
 
 	private static final float STARTING_POSITION = 100;
 	private static final int STARTING_COFFEE_AMOUNT = 3;
+	private static final int MAX_COFFEE_AMOUNT = 3;
 	private static final float MOVING_SPEED = 0.2f;
 	private static final float IMAGE_CHANGE_RATE = 250f;
 	private static final float HAZARD_PLACING_SPEED = 250f;
@@ -65,6 +66,7 @@ public class CoffeeHero {
 		this.position = CoffeeHero.STARTING_POSITION;
 		this.coffeeAmount = CoffeeHero.STARTING_COFFEE_AMOUNT;
 		this.curImage = CoffeeHero.stopGivingL;
+		this.isRefilling = true;
 	}
 
 	public void act(float timePassed)
@@ -88,7 +90,7 @@ public class CoffeeHero {
 
 	//make a coffee hazard
 	private void serveCoffee(float timePassed){
-		if (this.serveTimePassed > CoffeeHero.HAZARD_PLACING_SPEED)
+		if (this.serveTimePassed > CoffeeHero.HAZARD_PLACING_SPEED && this.coffeeAmount>0)
 		{
 			this.serveTimePassed = this.serveTimePassed%CoffeeHero.HAZARD_PLACING_SPEED;
 			this.coffeeAmount--;
@@ -96,17 +98,31 @@ public class CoffeeHero {
 		}
 	}
 
-	//refill when you are at the coffee machine
 	private void refillCoffee(){
-		if (this.position == linkWorld.cM.getPosition()){
+		if (CoffeeMaker.LOSE_RADIUS >(Math.abs(this.position - linkWorld.cM.getPosition())) && this.coffeeAmount < CoffeeHero.MAX_COFFEE_AMOUNT){
 			this.coffeeAmount = coffeeAmount + 1; 
 			//TODO add delay and loop in INPUT
 		}
 
 	}
+	
 
 	private void move(float timePassed){
 		this.position += timePassed*CoffeeHero.MOVING_SPEED*direction;
+		this.checkBounds();
+	}
+	
+	private void checkBounds()
+	{
+		short canvasCenter = Canvas.WIDTH/2;
+		if (this.position < canvasCenter - Enemy.SPAWN_DISTANCE)	//Hero too far to the left
+		{
+			this.position = canvasCenter - Enemy.SPAWN_DISTANCE;
+		}
+		else if (this.position > canvasCenter + Enemy.SPAWN_DISTANCE)	//Hero too far to the right
+		{
+			this.position = canvasCenter + Enemy.SPAWN_DISTANCE;
+		}
 	}
 
 	private void nextImage()
