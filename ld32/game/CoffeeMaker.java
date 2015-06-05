@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 public class CoffeeMaker {
 
+    private static final float SHOOTING_SPEED = 250.0f;
 	public static final short WIDTH = (short)(Canvas.WIDTH/2);	//position
 	public static final short HEIGHT = (short)(Canvas.HEIGHT/2);//position
 	public static final short RANGE = 200;
@@ -16,6 +17,7 @@ public class CoffeeMaker {
 	private Enemy target;
 	private LinkedList<CoffeeBean> coffeeBeanList = new LinkedList<CoffeeBean>();
 	private World linkWorld;
+	private float elapsedTime;
 
 	public float getPosition() {
 		return position;
@@ -35,7 +37,7 @@ public class CoffeeMaker {
 	private void aquireTarget(){
 
 		float distance_min = this.range + 1;
-		for (int j = 0; j<= linkWorld.enemiesList.size();j++){ //search all the enemies
+		for (int j = 0; j< linkWorld.enemiesList.size();j++){ //search all the enemies
 
 			float targetDistance = Math.abs(linkWorld.enemiesList.get(j).getPosition() - this.position);
 			if ((targetDistance <= range) && (targetDistance < distance_min)){  //if the enemy is at the tile
@@ -57,9 +59,15 @@ public class CoffeeMaker {
 		}
 	}
 
-	private void act(){
+	protected void act(float loopTime){
+		boolean readyToShoot = false;
+		this.elapsedTime = this.elapsedTime + loopTime; 
+		if (this.elapsedTime > SHOOTING_SPEED){
+			readyToShoot = true;
+			this.elapsedTime = this.elapsedTime - SHOOTING_SPEED;
+		}
 		this.aquireTarget();
-		if (this.targetAquired){
+		if (this.targetAquired && readyToShoot){
 			this.shoot(this.target.getPosition());// shoot him!
 		}
 

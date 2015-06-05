@@ -35,7 +35,7 @@ public class GameLoop
 		//TODO:
 		printFPS();
 		updateHero();
-		//updateCoffeeMaker();
+		updateCoffeeMaker();
 		//updateCoffeeBean();
 		updateEnemies();
 	}
@@ -52,7 +52,11 @@ public class GameLoop
 	
 	private void updateHero()
 	{
-		this.linkWorld.cH.act(this.loopTime);
+		linkWorld.cH.act(this.loopTime);
+	}
+	
+	private void updateCoffeeMaker(){
+		linkWorld.cM.act(this.loopTime);
 	}
 	
 	private void updateEnemies()
